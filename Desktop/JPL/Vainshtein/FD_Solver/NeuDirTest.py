@@ -1,9 +1,7 @@
 import numpy as np
 from scipy.sparse import linalg as sla
-import NeuDir_QuadSolver as 
+import NeuDir_QuadSolver as sol
 import time
-
-
 
 
 
@@ -86,8 +84,8 @@ def Mult_Op(x,y):
 #
 
 d = 1
-N_big = 100
-skip = 20
+N_big = 40
+skip = 5
 
 # To Test the Linear Solver
 
@@ -117,9 +115,13 @@ Quad_error_bucket = []
 Solver_error_bucket =[]
 
 nodes_bucket = []
+run_times_bucket = []
 
 for iLin in range(10,N_big,skip):
+
+    print('Number of nodes: ', iLin)
     
+    start_time = time.time()
     nodes = iLin
     nodes_bucket.append(nodes)
 
@@ -152,6 +154,8 @@ for iLin in range(10,N_big,skip):
     Sol_error = np.max(abs(Sol_dif))
     Solver_error_bucket.append(Sol_error)
 
+    run_time  = time.time()-start_time
+    run_times_bucket.append(run_time)
 
 
 #Plot Linear Error and Last Linear Approximation
@@ -197,7 +201,7 @@ plt.ylabel('Log Absolute Error')
 plt.text(nodes_spot,Lin_spot,'Slope = %f' % Lin_rate)
 
 plt.subplot(122)
-plt.title('Linear Solver Error')
+plt.title('Solver Error')
 
 plt.scatter(Log_nodes,Sol_log_error)
 plt.plot(Log_nodes,Sol_fit(Log_nodes), '-')
@@ -205,6 +209,9 @@ plt.xlabel('Log Steps')
 plt.ylabel('Log Absolute Error')
 plt.text(nodes_spot,Sol_spot,'Slope = %f' % Sol_rate)
 
+
+plt.figure(2)
+plt.scatter(nodes_bucket,run_times_bucket)
 plt.show()
 
 
@@ -212,7 +219,7 @@ plt.show()
 
 
 
-
+print(time.time() - start_time)
 
 
 
