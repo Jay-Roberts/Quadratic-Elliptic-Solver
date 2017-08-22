@@ -170,7 +170,7 @@ for iLin in range(10,N_big,skip):
 
 
     
-    #print(stats.head())
+# A nice way to get the stats. Not necessary for the rest of error computation
 '''
     stats = pd.DataFrame({'Nodes': nodes_bucket, 'Linear Error': Lin_error_bucket, 'Solver Error': Solver_error_bucket, 'Run Time': run_times_bucket})
     stats.to_csv('/home/jay/Desktop/JPL/NeuDirWriteUp/Stats.csv',columns=['Nodes','Linear Error','Solver Error', 'Run Time'] , index=False)
@@ -181,7 +181,6 @@ import matplotlib.pyplot as plt
 
 #Plot Linear Error and Last Linear Approximation
 
-# A nice way to get the stats. Not necessary for the rest of error computation
 
 
 Log_nodes = np.log(nodes_bucket)
